@@ -13,7 +13,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Unzip
-        run: unzip "SalikFlasher_Android.zip" && mv SalikWebApp/* . && mv SalikWebApp/.github .
+        run: |
+          unzip "SalikFlasher_Android.zip"
+          cp -r SalikWebApp/app .
+          cp SalikWebApp/build.gradle .
+          cp SalikWebApp/gradle.properties .
+          cp SalikWebApp/gradlew .
+          cp SalikWebApp/gradlew.bat .
+          cp SalikWebApp/settings.gradle .
+          cp -r SalikWebApp/gradle .
       - name: Build APK
         run: chmod +x gradlew && ./gradlew assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
